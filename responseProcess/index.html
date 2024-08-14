@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>TEST READ STREAM</title>
+	</head>
+	<style>
+		.process,
+		.process-line {
+			height: 0.54rem;
+			width: 300px;
+			background-color: rgb(197, 216, 216);
+			border-radius: 10px;
+		}
+
+		.process-line {
+			background-color: aquamarine;
+			transition: width 0.1s ease;
+			width: 0px;
+		}
+	</style>
+	<body>
+		<p>Hello</p>
+		<div class="process">
+			<div class="process-line"></div>
+		</div>
+
+		<script type="module" src="./index.js"></script>
+	</body>
+</html>
