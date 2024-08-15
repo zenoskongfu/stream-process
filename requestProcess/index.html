@@ -10,7 +10,13 @@
 
 <body>
   <form id="formEl">
-    <input type="file" name="png"/>
+    <div>
+      <span>Select Png: </span><input type="file" multiple name="png"  accept=".png,.jpg,.jpeg"/>
+    </div>
+    <div>
+      <span>Select MD Files: </span>
+      <input type="file" multiple name="md" accept=".md"/>
+    </div>
     <input type="submit"
            value="提交～">
   </form>

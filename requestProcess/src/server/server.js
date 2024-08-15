@@ -1,6 +1,10 @@
 const http = require("http");
 const { formidable } = require("formidable");
 const saveFiles = require("./saveFiles");
+const path = require("path");
+const { getFilesName } = require("./utils");
+const uploadDir = path.join(__dirname, "./upload");
+
 const server = http.createServer((req, res) => {
 	setCors(req, res);
 	if (req.method.toLowerCase() == "post") {
@@ -24,14 +28,17 @@ async function setCors(req, res) {
  */
 async function handlePost(req, res) {
 	const form = formidable({});
+	form.uploadDir = uploadDir;
+	form.keepExtensions = true;
 
 	try {
 		const [fields, files] = await form.parse(req);
 		console.log(fields, files);
 
-		await Promise.all(saveFiles(Object.values(files)));
+		// use uploadDir field to save file automatically
+		// await Promise.all(saveFiles(Object.values(files)));
 
-		res.end(JSON.stringify({ status: "success" }));
+		res.end(JSON.stringify({ status: "success", files: getFilesName(files) }));
 	} catch (error) {
 		console.error(error);
 		res.writeHead(400, { "Content-Type": "text/plain" });
