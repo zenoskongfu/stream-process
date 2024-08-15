@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>TEST REQUEST</title>
+</head>
+
+<body>
+  <form id="formEl">
+    <input type="file" name="png"/>
+    <input type="submit"
+           value="提交～">
+  </form>
+  </form>
+
+  <script>
+    const url = 'http://localhost:3000';
+    const formEl = document.getElementById('formEl');
+    formEl.onsubmit = async (e) => {
+      e.preventDefault();
+
+      fetch(url, {
+        method: 'POST',
+        body: new FormData(formEl)
+      }).then(res => res.json())
+        .then(console.log)
+
+    }
+  </script>
+</body>
+
+</html>
