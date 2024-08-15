@@ -1,4 +1,4 @@
-export default function http(url, stepCallback = () => null, completeCallback = () => null) {
+export default function fetchRequest(url, stepCallback = () => null, completeCallback = () => null) {
 	let totalSize = 0;
 	return new Promise((resolve, reject) => {
 		fetch(url)

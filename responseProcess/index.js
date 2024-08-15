@@ -1,4 +1,5 @@
-import http from "./http.js";
+import fetchRequest from "./fetchRequest.js";
+import xmlRequest from "./xmlHttpRequest.js";
 const img = "https://p4.itc.cn/images01/20220318/7494a73201ba45ac9a3282d0fc93cf05.jpeg";
 
 function calcLine(percent) {
@@ -7,7 +8,9 @@ function calcLine(percent) {
 }
 
 async function action() {
-	const chunk = await http(img, calcLine);
+	// const chunk = await fetchRequest(img, calcLine);
+	let chunk = await xmlRequest(img, calcLine);
+	chunk = [chunk];
 	displayImg(chunk);
 }
 
