@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>TEST READ STREAM</title>
+	</head>
+	<style>
+		.process,
+		.process-line {
+			height: 0.54rem;
+			width: 300px;
+			background-color: rgb(197, 216, 216);
+			border-radius: 10px;
+		}
+
+		.process-line {
+			background-color: aquamarine;
+			transition: width 0.1s ease;
+			width: 0px;
+		}
+	</style>
+	<body>
+		<p>Hello</p>
+		<div class="process">
+			<div class="process-line"></div>
+		</div>
+		<form id="formEl">
+			<div><span>Select Png: </span><input type="file" multiple name="png" accept=".png,.jpg,.jpeg" /></div>
+			<div>
+				<span>Select MD Files: </span>
+				<input type="file" multiple name="md" accept=".md" />
+			</div>
+			<!-- <input type="submit" value="提交～" /> -->
+			<button id="submit">提交</button>
+		</form>
+
+		<script>
+			// const url = 'http://localhost:3000';
+			// const formEl = document.getElementById('formEl');
+			// formEl.onsubmit = async (e) => {
+			// 	e.preventDefault();
+
+			// 	(url, {
+			// 		method: 'POST',
+			// 		body: new FormData(formEl)
+			// 	}).then(res => res.json())
+			// 		.then(console.log)
+
+			// }
+		</script>
+		<script type="module" src="./upload.js"></script>
+		<!-- <script type="module" src="./index.js"></script> -->
+	</body>
+</html>

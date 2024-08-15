@@ -27,7 +27,7 @@ async function setCors(req, res) {
  * @param {http.ServerResponse<http.IncomingMessage>} res
  */
 async function handlePost(req, res) {
-	const form = formidable({});
+	const form = formidable({ allowEmptyFiles: true, minFileSize: 0 });
 	form.uploadDir = uploadDir;
 	form.keepExtensions = true;
 
@@ -38,6 +38,7 @@ async function handlePost(req, res) {
 		// use uploadDir field to save file automatically
 		// await Promise.all(saveFiles(Object.values(files)));
 
+		res.statusCode = 200;
 		res.end(JSON.stringify({ status: "success", files: getFilesName(files) }));
 	} catch (error) {
 		console.error(error);
