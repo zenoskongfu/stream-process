@@ -1,17 +1,17 @@
 const http = require("http");
 const { formidable } = require("formidable");
-const saveFiles = require("./saveFiles");
 const path = require("path");
 const { getFilesName } = require("./utils");
 const uploadDir = path.join(__dirname, "./upload");
+const fs = require("fs");
 
 const server = http.createServer((req, res) => {
-	setCors(req, res);
-	if (req.method.toLowerCase() == "post") {
-		handlePost(req, res);
-	} else {
-		handleGet(req, res);
-	}
+  setCors(req, res);
+  if (req.method.toLowerCase() == "post") {
+    handlePost(req, res);
+  } else {
+    handleGet(req, res);
+  }
 });
 
 /**
@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
  * @param {http.ServerResponse<http.IncomingMessage>} res
  */
 async function setCors(req, res) {
-	res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "*");
 }
 
 /**
@@ -27,24 +27,20 @@ async function setCors(req, res) {
  * @param {http.ServerResponse<http.IncomingMessage>} res
  */
 async function handlePost(req, res) {
-	const form = formidable({ allowEmptyFiles: true, minFileSize: 0 });
-	form.uploadDir = uploadDir;
-	form.keepExtensions = true;
+  const form = formidable({ allowEmptyFiles: true, minFileSize: 0 });
+  form.uploadDir = uploadDir;
+  form.keepExtensions = true;
 
-	try {
-		const [fields, files] = await form.parse(req);
-		console.log(fields, files);
+  try {
+    const [field, files] = await form.parse(req);
 
-		// use uploadDir field to save file automatically
-		// await Promise.all(saveFiles(Object.values(files)));
-
-		res.statusCode = 200;
-		res.end(JSON.stringify({ status: "success", files: getFilesName(files) }));
-	} catch (error) {
-		console.error(error);
-		res.writeHead(400, { "Content-Type": "text/plain" });
-		res.end(JSON.stringify(error));
-	}
+    res.statusCode = 200;
+    res.end(JSON.stringify({ status: "success", files: getFilesName(files) }));
+  } catch (error) {
+    console.error(error);
+    res.writeHead(400, { "Content-Type": "text/plain" });
+    res.end(JSON.stringify(error));
+  }
 }
 
 /**
@@ -52,10 +48,26 @@ async function handlePost(req, res) {
  * @param {http.ServerResponse<http.IncomingMessage>} res
  */
 function handleGet(req, res) {
-	res.end("welcome to simple server");
+  // res.end("welcome to simple server");
+  function renderFile(filePath) {
+    filePath = path.resolve(__dirname, filePath);
+    if (fs.existsSync(filePath)) {
+      if (filePath.endsWith("js")) {
+        res.setHeader("content-type", "text/javascript");
+      }
+      fs.createReadStream(filePath).pipe(res);
+    } else {
+      renderFile("../index.html");
+    }
+  }
+  console.log(req.url);
+  let filePath = req.url == "/" ? "/index.html" : req.url;
+  // let filePath = req.url;
+
+  renderFile(".." + filePath);
 }
 
 const port = 3000;
 server.listen(port, () => {
-	console.log("server listen: ", port);
+  console.log("server listen: ", port);
 });
