@@ -1,55 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>TEST READ STREAM</title>
-	</head>
-	<style>
-		.process,
-		.process-line {
-			height: 0.54rem;
-			width: 300px;
-			background-color: rgb(197, 216, 216);
-			border-radius: 10px;
-		}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TEST READ STREAM</title>
+  </head>
+  <style>
+    .process-container {
+      display: flex;
+      align-items: center;
+      padding: 2rem;
+      border-radius: 4px;
+      border: 1px solid rgba(211, 211, 211, 0.456);
+      width: fit-content;
+    }
+    .process,
+    .process-line {
+      height: 0.54rem;
+      width: 300px;
+      background-color: rgb(197, 216, 216);
+      border-radius: 10px;
+    }
 
-		.process-line {
-			background-color: aquamarine;
-			transition: width 0.1s ease;
-			width: 0px;
-		}
-	</style>
-	<body>
-		<p>Hello</p>
-		<div class="process">
-			<div class="process-line"></div>
-		</div>
-		<form id="formEl">
-			<div><span>Select Png: </span><input type="file" multiple name="png" accept=".png,.jpg,.jpeg" /></div>
-			<div>
-				<span>Select MD Files: </span>
-				<input type="file" multiple name="md" accept=".md" />
-			</div>
-			<!-- <input type="submit" value="提交～" /> -->
-			<button id="submit">提交</button>
-		</form>
+    .process-line {
+      background-color: aquamarine;
+      transition: width 0.1s ease;
+      width: 0px;
+    }
+    .process-text {
+      font-size: 20px;
+      padding-left: 1rem;
+    }
+    img {
+      width: 300px;
+      margin-left: 2rem;
+      margin-top: 1rem;
+    }
+    .label {
+      width: 100px;
+      display: inline-block;
+    }
+    .form-item {
+      margin: 1rem;
+    }
+    .submit-input {
+      width: 80px;
+      padding: 2px 0;
+      margin: 0 auto;
+    }
 
-		<script>
-			// const url = 'http://localhost:3000';
-			// const formEl = document.getElementById('formEl');
-			// formEl.onsubmit = async (e) => {
-			// 	e.preventDefault();
+    #formEl {
+      border-radius: 4px;
+      border: 1px solid rgba(220, 220, 220, 0.589);
+      margin-bottom: 20px;
+      width: fit-content;
+    }
+  </style>
+  <body>
+    <form id="formEl">
+      <div class="form-item">
+        <span class="label">Select Png: </span>
+        <input type="file" multiple name="png" accept=".png,.jpg,.jpeg" />
+      </div>
+      <div class="form-item">
+        <span class="label">Select MD: </span>
+        <input type="file" multiple name="md" accept=".md" />
+      </div>
+      <div class="form-item">
+        <input type="submit" value="提交" class="submit-input" />
+      </div>
+    </form>
 
-			// 	(url, {
-			// 		method: 'POST',
-			// 		body: new FormData(formEl)
-			// 	}).then(res => res.json())
-			// 		.then(console.log)
+    <div class="process-container" style="display: none">
+      <div class="process">
+        <div class="process-line"></div>
+      </div>
+      <span class="process-text"></span>
+    </div>
 
-			// }
-		</script>
-		<script type="module" src="./upload.js"></script>
-		<!-- <script type="module" src="./index.js"></script> -->
-	</body>
+    <script type="module" src="./upload.js"></script>
+  </body>
 </html>
